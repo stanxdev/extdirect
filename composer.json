@@ -1,0 +1,22 @@
+{
+    "name": "stanx/extdirect",
+    "description": "Ext.Direct integration with PHP",
+    "keywords": ["extdirect", "extjs"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "stanx",
+            "email": "stanxdev@gmail.com"
+        }
+    ],
+
+    "require": {
+        "php": ">=7.1"
+    },
+    
+    "autoload": {
+        "psr-0": {
+            "ExtDirect": "src/"
+        }
+    }
+}
