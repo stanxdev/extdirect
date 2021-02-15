@@ -1,4 +1,4 @@
-# ExtDirect.php for ExtJS 6
+# ExtDirect.php for ExtJS
 Extremely Easy Ext.Direct integration with PHP
 
 Original author : J. Bruni  
