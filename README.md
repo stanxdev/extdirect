@@ -71,7 +71,7 @@ That's all.
 - name: `api_classes`  
   type: array of strings or key-value pairs  
   meaning: Name of the classes to be published to the Ext.Direct API. It can be string or key-value pair: key is api name, value is class.  
-  default: empty  
+  default: `empty`  
   comments: This option is overridden if you provide a non-empty `api_classes` parameter for the `ExtDirect::provide` method. Choose one or another. If you want to declare a single class, you can set `api_classes` as a string, instead of an array  
   example:
 ```php
@@ -80,7 +80,7 @@ That's all.
 - name: `api_classes_discovery_dirs`  
   type: array
   meaning: These directories will be scanned recursively and classes with `@extdirect-api` attribute in the DOC comment will be added to `api_classes` option.<br>Key is the path, value is the namespace.  
-  default: empty  
+  default: `empty`  
   comments: **WARNING**: This option can slow down the response if there are many files in discovery directories. You can get discovered classes from `ExtDirect::discover_api_classes()` and save them in cache  
   example:
 ```php
@@ -98,25 +98,25 @@ That's all.
 - name: `namespace`  
   type: string  
   meaning: Ext.Direct API attribute "namespace"  
-  default: "Ext.php"  
+  default: `Ext.php`  
   comments: Feel free to choose your own namespace, according to ExtJS rules for it.  
   example:
 ```php
-  ExtDirect::$namespace = 'Ext.MyNamespace'; 
+  ExtDirect::$namespace = 'Ext.php'; 
 ```
 - name: `descriptor`  
   type: string  
   meaning: Ext.Direct API attribute "descriptor"  
-  default: "Ext.php.REMOTING_API"  
+  default: `Ext.php.REMOTING_API`  
   comments: Feel free to choose your own descriptor, according to ExtJS rules for it, and to the chosen namespace.  
   example:
 ```php
-  ExtDirect::$descriptor = 'Ext.MyNamespace.REMOTING_API';  
+  ExtDirect::$descriptor = 'Ext.php.REMOTING_API';  
 ```
 - name: `id`  
   type: string  
   meaning: Ext.Direct Provider attribute "id"  
-  default: empty  
+  default: `empty`  
   example:
 ```php
   ExtDirect::$id = 'MyProvider';  
@@ -124,7 +124,7 @@ That's all.
 - name: `max_retries`  
   type: int  
   meaning: Number of times to re-attempt delivery on failure of a call  
-  default: 1  
+  default: `1`  
   example:
 ```php
   ExtDirect::$max_retries = 1;  
@@ -132,7 +132,7 @@ That's all.
 - name: `timeout`  
   type: int  
   meaning: The number of milliseconds to use as the timeout for every Method invocation in this Remoting API  
-  default: 30000  
+  default: `30000`  
   example:
 ```php
   ExtDirect::$timeout = 30000;  
@@ -140,7 +140,7 @@ That's all.
 - name: `count_only_required_params`  
   type: boolean  
   meaning: Set this to true to count only the required parameters of a method for the API "len" attribute  
-  default: false  
+  default: `false`  
   example:
 ```php
   ExtDirect::$count_only_required_params = true;  
@@ -148,7 +148,7 @@ That's all.
 - name: `include_static_methods`  
   type: boolean  
   meaning: Set this to true to include static methods in the API declaration  
-  default: false  
+  default: `false`  
   example:
 ```php
   ExtDirect::$include_static_methods = true;  
@@ -156,7 +156,7 @@ That's all.
 - name: `include_inherited_methods`  
   type: boolean  
   meaning: Set this to true to include inherited methods in the API declaration  
-  default: false  
+  default: `false`  
   example:
 ```php
   ExtDirect::$include_inherited_methods = true;
@@ -164,7 +164,7 @@ That's all.
 - name: `instantiate_static`  
   type: boolean  
   meaning: Set this to true to create an object instance of a class even if the method being called is static  
-  default: false  
+  default: `false`  
   example:
 ```php
   ExtDirect::$instantiate_static = true;
@@ -172,7 +172,7 @@ That's all.
 - name: `constructor_send_params`  
   type: boolean  
   meaning: Set this to true to call the action class constructor sending the action parameters to it  
-  default: false  
+  default: `false`  
   example:
 ```php
   ExtDirect::$constructor_send_params = true;
@@ -180,15 +180,15 @@ That's all.
 - name: `constructor_params`  
   type: array  
   meaning: parameters to be sent to the class constructor (use the class key as name)  
-  default: empty  
+  default: `[]`  
   example:
 ```php
-  ExtDirect::$constructor_params = array('MyNamespace\\MyClass' => ['param1','param2']);
+  ExtDirect::$constructor_params = ['MyNamespace\\MyClass' => ['param1', 'param2']];
 ```
 - name: `debug`  
   type: boolean  
   meaning: Set this to true to allow exception detailed information in the output  
-  default: false  
+  default: `false`  
   example:
 ```php
   ExtDirect::$debug = true;
@@ -196,7 +196,7 @@ That's all.
 - name: `utf8_encode`  
   type: boolean  
   meaning: Set this to true to pass all action method call results through utf8_encode function  
-  default: false  
+  default: `false`  
   example:
 ```php
   ExtDirect::$utf8_encode = true;  
@@ -204,11 +204,11 @@ That's all.
 - name: `default_api_output`  
   type: string
   meaning: API output format - available options are "json" (good for Ext Designer) and "javascript"  
-  default: "javascript"  
-  comments: Another way to enforce "javascript" output is to append the "?javascript" query string in the end of your PHP script URL; do this in the HTML `<script>` tag that refers to your API  
+  default: `javascript`  
+  comments: Another way to enforce "json" output is to append the "?json" query string in the end of your PHP script URL; do this in the HTML `<script>` tag that refers to your API  
   example:
 ```php
-  ExtDirect::$default_api_output = "javascript";  
+  ExtDirect::$default_api_output = 'javascript';  
 ```
 
 
@@ -222,11 +222,11 @@ Method 1: use the new `ExtDirect::$form_handlers` configuration option.
 - name: `form_handlers`
   type: array of strings  
   meaning: Name of the class/methods to be flagged as formHandler in the Ext.Direct API  
-  default: empty  
+  default: `[]`  
   comments: The string format for each method must be "className::methodName"  
   example:
 ```php
-  ExtDirect::$form_handlers = array( 'someClass::someMethod', 'MyNamespace\\Server::date' );  
+  ExtDirect::$form_handlers = ['someClass::someMethod', 'MyNamespace\\Server::date'];  
 ```
 Method 2: include `@extdirect-formHandler` in the DOC comment of the method.
 
