@@ -655,7 +655,7 @@ class ExtDirectAction
                        $ref_parameter_type instanceof ReflectionNamedType &&
                        in_array($ref_parameter_type->getName(), ['array', 'object', 'stdClass']))
                     {
-                        $value = json_decode($value);
+                        $value = json_decode($value, $ref_parameter_type->getName() === 'array');
                     }
                 }
                 else if($this->upload && isset($_FILES[$param_name]))
