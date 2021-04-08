@@ -53,7 +53,7 @@ Here, to call the "date" method from PHP "Server" class, we prepended the defaul
 - Call the class constructor with the actions parameters? You choose! (default: no)
 - "debug" option to enable server exceptions to be sent in the output of API action results (default: off)
 - "utf8_encode" option to automatically apply UTF8 encoding in API action results (default: off)
-- You choose if parameters will be converted in associative arrays (default: no)
+- You choose if parameters will be converted to associative arrays (default: no)
 - Handle forms
 - Handle file uploads
   Configuration - How To
