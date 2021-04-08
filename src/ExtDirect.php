@@ -23,6 +23,11 @@ class ExtDirect
      * @var bool     Set this to true to pass all action method call results through utf8_encode function
      */
     public static $utf8_encode = false;
+    
+    /**
+     * @var bool     Set this to true to pass all action parameters through json_decode(json_encode($params), true)
+     */
+    public static $params_enforce_associative = false;
 
     /**
      * @var string   Ext.Direct API attribute "url"
@@ -634,7 +639,9 @@ class ExtDirectAction
 
         if(!$this->form_handler)
         {
-            $parameters = $this->parameters;
+            $parameters = ExtDirect::$params_enforce_associative
+                ? json_decode(json_encode($this->parameters), true)
+                : $this->parameters;
         }
         else
         {
@@ -655,7 +662,9 @@ class ExtDirectAction
                        $ref_parameter_type instanceof ReflectionNamedType &&
                        in_array($ref_parameter_type->getName(), ['array', 'object', 'stdClass']))
                     {
-                        $value = json_decode($value, $ref_parameter_type->getName() === 'array');
+                        $enforce_assoc = ExtDirect::$params_enforce_associative &&
+                                         $ref_parameter_type->getName() === 'array';
+                        $value = json_decode($value, $enforce_assoc);
                     }
                 }
                 else if($this->upload && isset($_FILES[$param_name]))
