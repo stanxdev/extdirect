@@ -53,6 +53,7 @@ Here, to call the "date" method from PHP "Server" class, we prepended the defaul
 - Call the class constructor with the actions parameters? You choose! (default: no)
 - "debug" option to enable server exceptions to be sent in the output of API action results (default: off)
 - "utf8_encode" option to automatically apply UTF8 encoding in API action results (default: off)
+- You choose if parameters will be converted in associative arrays (default: no)
 - Handle forms
 - Handle file uploads
   Configuration - How To
@@ -200,6 +201,14 @@ That's all.
   example:
 ```php
   ExtDirect::$utf8_encode = true;  
+```
+- name: `params_enforce_associative`  
+  type: boolean  
+  meaning: Set this to true to pass all action parameters through json_decode(json_encode($params), true)  
+  default: `false`  
+  example:
+```php
+  ExtDirect::$params_enforce_associative = true;  
 ```
 - name: `default_api_output`  
   type: string
