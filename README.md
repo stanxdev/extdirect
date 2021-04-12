@@ -352,16 +352,14 @@ ExtDirect::$transform_response_function = 'transform_response';
 
 function declare_method(string $class, string $method) : bool
 {
-    $key = $class . '::' . $method;
-    
     // return boolean - declare the method in the API or not
-    return in_array($key, MyFramework::$user->permissions);
+    return in_array($class . '::' . $method, MyFramework::$user->permissions);
 }
 
-function authorize(ExtDirectAction $action) : bool
+function authorize(ExtDirectAction $action, callable $callback, array $parameters) : bool
 {
     // return boolean - authorize the action call or not
-    return declare_method($action->action, $action->method);
+    return declare_method($action->class, $action->method);
 }
 
 function instantiate(ExtDirectAction $action) : object
