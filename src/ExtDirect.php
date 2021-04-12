@@ -121,7 +121,7 @@ class ExtDirect
 
     /**
      * @var callable Function to be called before the API action call, to perform authorization
-     *               callback(ExtDirectAction $action) : bool
+     *               callback(ExtDirectAction $action, callable $callback, array $parameters) : bool
      */
     public static $authorization_function = null;
 
