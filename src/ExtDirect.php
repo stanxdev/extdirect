@@ -23,7 +23,7 @@ class ExtDirect
      * @var bool     Set this to true to pass all action method call results through utf8_encode function
      */
     public static $utf8_encode = false;
-    
+
     /**
      * @var bool     Set this to true to pass all action parameters through json_decode(json_encode($params), true)
      */
@@ -593,26 +593,16 @@ class ExtDirectAction
 
         // Do not allow calls to methods that do not pass the declare_method_function (if configured)
         if(!empty(ExtDirect::$declare_method_function) &&
-           !call_user_func(ExtDirect::$declare_method_function, $class, $this->method)
-        )
+           !call_user_func(ExtDirect::$declare_method_function, $class, $this->method))
             throw new Exception('Call to undefined or not allowed method ' . $class . '::' . $this->method,
                 E_USER_ERROR);
-
-        // Do not allow calls to methods that do not pass the authorization_function (if configured)
-        if(!empty(ExtDirect::$authorization_function) &&
-           !call_user_func(ExtDirect::$authorization_function, $this))
-        {
-            $this->authorized = false;
-            throw new Exception('Not authorized to call ' . $class . '::' . $this->method,
-                E_USER_ERROR);
-        }
 
         $ref_method = new ReflectionMethod($class, $this->method);
 
         // Do not allow calls to methods that marked with @extdirect-exclude
         if(strpos($ref_method->getDocComment(), '@extdirect-exclude') !== false)
-            throw new Exception('Call to undefined or not allowed method ' . $class . '::' .
-                                $this->method, E_USER_ERROR);
+            throw new Exception('Call to undefined or not allowed method ' . $class . '::' . $this->method,
+                E_USER_ERROR);
 
         // Get number of parameters for the method
         if(ExtDirect::$count_only_required_params)
@@ -728,9 +718,19 @@ class ExtDirectAction
      * @param array    $parameters Parameters to pass to the action method
      *
      * @return mixed Result of the action method
+     * @throws Exception
      */
     protected function call_action_func_array(callable $callback, array $parameters)
     {
+        // Do not allow calls to methods that do not pass the authorization_function (if configured)
+        if(!empty(ExtDirect::$authorization_function) &&
+           !call_user_func(ExtDirect::$authorization_function, $this, $callback, $parameters))
+        {
+            $this->authorized = false;
+            throw new Exception('Not authorized to call ' . $this->class . '::' . $this->method .
+                                'with parameters: ' . json_encode($parameters), E_USER_ERROR);
+        }
+
         $result = call_user_func_array($callback, $parameters);
 
         if(is_callable(ExtDirect::$transform_result_function))
